@@ -25,4 +25,6 @@ Route::get('/home', function () {
 })->middleware(['auth', 'verified'])->name('home');
 
 Route::get('/community', [App\Http\Controllers\CommunityLinkController::class, 'index']);
-Route::post('/community', [App\Http\Controllers\CommunityLinkController::class, 'store']);
+
+Route::post('/community', [App\Http\Controllers\CommunityLinkController::class, 'store'])
+->middleware(['auth']);

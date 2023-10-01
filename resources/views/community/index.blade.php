@@ -1,11 +1,13 @@
 @extends('layouts.app')
+
 @section('content')
-    <h1>Community</h1>
-
-    @foreach ($links as $link)
-        <li>{{$link->title}}</li>
-        <small>Contributed by: {{$link->creator->name}} {{$link->updated_at->diffForHumans()}}</small>
-    @endforeach
-    {{$links->links()}}
-
+    <div class="container">
+        <div class="row">
+            {{-- Left colum to show all the links in the DB --}}
+            @include('community.partials.links')
+            {{-- Right colum to show the form to upload a link --}}
+            @include('community.partials.add-link')
+        </div>
+        {{ $links->links() }}
+    </div>
 @stop

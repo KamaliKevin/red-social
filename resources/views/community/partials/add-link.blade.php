@@ -10,7 +10,7 @@
                     <label for="title">Title:</label>
                     <input type="text" class="form-control @error('title') is-invalid @enderror"
                            id="title" name="title"
-                           placeholder="What is the title of your article?">
+                           placeholder="What is the title of your article?" value="{{ old('title') }}">
 
                     @error('title')
                     <div class="alert alert-danger">{{ $message }}</div>
@@ -21,10 +21,26 @@
                     <label for="link">Link:</label>
                     <input type="text" class="form-control @error('link') is-invalid @enderror"
                            id="link" name="link"
-                           placeholder="What is the URL?">
+                           placeholder="What is the URL?" value="{{ old('link') }}">
 
                     @error('link')
                     <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="channel_id">Channel:</label>
+                    <select class="form-control @error('channel_id') is-invalid @enderror" name="channel_id" id="channel_id">
+                        <option selected disabled>Pick a Channel...</option>
+                        @foreach ($channels as $channel)
+                            <option value="{{ $channel->id }}" {{ old('channel_id') == $channel->id ? 'selected' : '' }}>
+                                {{ $channel->title }}
+                            </option>
+                        @endforeach
+                    </select>
+
+                    @error('channel_id')
+                    <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
 

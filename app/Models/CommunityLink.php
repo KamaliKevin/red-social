@@ -17,4 +17,9 @@ class CommunityLink extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function channel(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Channel::class, 'channel_id');
+    }
 }

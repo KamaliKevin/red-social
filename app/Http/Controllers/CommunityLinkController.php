@@ -14,7 +14,7 @@ class CommunityLinkController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $links = CommunityLink::paginate(25);
+        $links = CommunityLink::where('approved', 1)->paginate(25);
         $channels = Channel::orderBy('title','asc')->get();
         return view('community/index', compact("links", "channels"));
     }
@@ -40,11 +40,22 @@ class CommunityLinkController extends Controller
 
         $data['user_id'] = Auth::id();
 
+        $approved = (bool)Auth::user()->isTrusted();
+        $data['approved'] = $approved;
+
         // $data['channel_id'] = 1;
 
         CommunityLink::create($data);
 
-        return back();
+        if($data['approved']){
+            // If the link is approved, we should show a successful message:
+            return back()->with('success', 'Your link has been created and published');
+        }
+        else {
+            // If the link is not approved, we should show a warning message:
+            return back()->with('warning', 'Your link has been created,
+            but you need to wait until our admin approves it to be published');
+        }
     }
 
     /**

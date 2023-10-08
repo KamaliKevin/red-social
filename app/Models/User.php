@@ -42,4 +42,14 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Check if the user is trusted.
+     *
+     * @return bool
+     */
+    public function isTrusted(): bool
+    {
+        return $this->attributes['trusted'] === 1;
+    }
 }

@@ -13,6 +13,9 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
+    <!-- Custom styles -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/custom.css') }}">
+
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
@@ -73,6 +76,7 @@
         </nav>
 
         <main class="py-4">
+            @include('flash-message')
             @yield('content')
         </main>
     </div>

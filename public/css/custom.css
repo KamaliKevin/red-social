@@ -1,0 +1,17 @@
+.list-style-none {
+    list-style-type: none;
+}
+
+.sx-padding {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.my-padding {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.lightgrey-border {
+    border: 2px solid lightgray;
+}

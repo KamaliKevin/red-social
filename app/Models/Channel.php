@@ -13,7 +13,7 @@ class Channel extends Model
         'title', 'slug', 'color'
     ];
 
-    public function communityLinks()
+    public function communityLinks(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(CommunityLink::class);
     }

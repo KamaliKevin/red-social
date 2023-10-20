@@ -1,5 +1,8 @@
 <div class="col-md-8">
-    <h1>Community</h1>
+    <h1>
+        <a href="{{ route('community') }}" class="text-decoration-none">Community</a>
+        @if($channel) - {{ $channel->title }} @endif
+    </h1>
     @if(count($links))
         <ul class="list-style-none">
             @foreach ($links as $link)
@@ -9,7 +12,9 @@
                     </a>
                     <small>Contributed by: {{ $link->creator->name }} {{ $link->updated_at->diffForHumans() }}</small>
                     <span class="label label-default" style="background: {{ $link->channel->color }}">
-                        {{ $link->channel->title }}
+                        <a class="text-decoration-none" href="/community/{{ $link->channel->slug }}">
+                            {{ $link->channel->title }}
+                        </a>
                     </span>
                 </li>
             @endforeach

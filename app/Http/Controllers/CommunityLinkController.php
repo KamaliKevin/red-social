@@ -13,11 +13,22 @@ class CommunityLinkController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    public function index(Channel $channel = null):
+    \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|
+    \Illuminate\Contracts\Foundation\Application
     {
-        $links = CommunityLink::where('approved', 1)->latest('updated_at')->paginate(25);
+        $links = "";
+        if($channel){
+            $links = CommunityLink::where('approved', 1)->where('channel_id', $channel->id)
+                ->latest('updated_at')->paginate(25);
+        }
+        else {
+            $links = CommunityLink::where('approved', 1)->latest('updated_at')->paginate(25);
+        }
+
         $channels = Channel::orderBy('title','asc')->get();
-        return view('community/index', compact("links", "channels"));
+
+        return view('community/index', compact("links", "channels", "channel"));
     }
 
     /**

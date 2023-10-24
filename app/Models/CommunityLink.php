@@ -124,4 +124,25 @@ class CommunityLink extends Model
             }
         }
     }
+
+    /**
+     * Checks if a user voted a link. If the user did, the link is unvoted; if not, the link has a new vote.
+     * @return bool "False" if the link was already voted; "True" if not and the vote is new
+     */
+    public function toggle(): bool
+    {
+        // Check if the user has already voted for this link
+        $vote = CommunityLinkUser::firstOrNew(['user_id' => Auth::id(),'community_link_id' => $this->id]);
+
+        if ($vote->id) {
+            // If the vote exists, delete it (unvote)
+            $vote->delete();
+            return false; // Indicates the vote was removed
+        }
+        else {
+            // If the vote doesn't exist, save it (vote)
+            $vote->save();
+            return true; // Indicates the vote was added
+        }
+    }
 }

@@ -7,22 +7,36 @@
         <ul class="list-style-none">
             @foreach ($links as $link)
                 <li class="sx-padding my-padding lightgrey-border">
-                    <p>
+                    <div class="d-flex justify-content-start align-content-end mb-3">
                         <a href="{{ $link->link }}" target="_blank" class="me-2">{{ $link->title }}</a>
-                        <span class="text-success fw-bold">{{ $link->users()->count() }} votes</span><br>
                         @if ($link->creator)
-                            Contributed by: <span class="fw-bold">{{ $link->creator->name }}</span>
-                            <small>| {{ $link->updated_at->diffForHumans() }}</small>
+                            <label>
+                                Contributed by: <span class="fw-bold">{{ $link->creator->name }}</span>
+                                <small>| {{ $link->updated_at->diffForHumans() }}</small>
+                            </label>
                         @else
-                            Contributed by: <span class="fst-italic">(Deleted user)</span>
-                            <small>| {{ $link->updated_at->diffForHumans() }}</small>
+                            <label>
+                                Contributed by: <span class="fst-italic">(Deleted user)</span>
+                                <small>| {{ $link->updated_at->diffForHumans() }}</small>
+                            </label>
                         @endif
-                    </p>
-                    <a class="text-decoration-none me-2" href="/community/{{ $link->channel->slug }}">
-                        <span class="label label-default p-1" style="background: {{ $link->channel->color }}">
-                            {{ $link->channel->title }}
-                        </span>
-                    </a>
+                    </div>
+                    <div class="d-flex justify-content-start align-content-end">
+                        <a class="text-decoration-none p-2 me-2" href="/community/{{ $link->channel->slug }}"
+                           style="background: {{ $link->channel->color }}">
+                                {{ $link->channel->title }}
+                        </a>
+                        <form method="POST" action="/votes/{{ $link->id }}">
+                            {{ csrf_field() }}
+                            <button
+                                type="submit"
+                                class="btn
+                                {{ Auth::check() && Auth::user()->votedFor($link) ? 'btn-success' : 'btn-secondary' }}"
+                                {{ Auth::guest() ? 'disabled' : '' }}>
+                                {{$link->users()->count()}} votes
+                            </button>
+                        </form>
+                    </div>
                 </li>
             @endforeach
         </ul>

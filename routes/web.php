@@ -30,3 +30,5 @@ Route::post('/community', [App\Http\Controllers\CommunityLinkController::class, 
 ->middleware(['auth']);
 
 Route::get('community/{channel:slug}', [App\Http\Controllers\CommunityLinkController::class, 'index']);
+
+Route::post('votes/{link}', [App\Http\Controllers\CommunityLinkUserController::class, 'store']);

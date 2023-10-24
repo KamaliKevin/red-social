@@ -52,4 +52,15 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->attributes['trusted'] === 1;
     }
+
+    public function votes(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(CommunityLink::class, 'community_link_users')
+            ->withTimestamps();
+    }
+
+    public function votedFor(CommunityLink $link)
+    {
+        return $this->votes->contains($link);
+    }
 }

@@ -19,7 +19,7 @@ class CommunityLinkController extends Controller
     {
         $links = "";
         if($channel){
-            $links = CommunityLink::where('approved', 1)->where('channel_id', $channel->id)
+            $links = $channel->communityLinks()->where('approved', 1)
                 ->latest('updated_at')->paginate(25);
         }
         else {

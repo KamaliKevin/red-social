@@ -24,6 +24,11 @@ class CommunityLink extends Model
         return $this->belongsTo(Channel::class, 'channel_id');
     }
 
+    public function users(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'community_link_users');
+    }
+
     /**
      * Gets data of the specified link (if it does exist)
      */

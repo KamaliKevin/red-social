@@ -17,8 +17,6 @@ use Illuminate\Support\Facades\Route;
 Auth::routes(['verify' => 'true']);
 
 Route::get('/', function () {
-    dd(opcache_get_status());
-
     return view('welcome');
 });
 

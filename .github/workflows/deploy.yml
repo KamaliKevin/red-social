@@ -14,4 +14,5 @@ jobs:
           port: 2222
           username: kevin
           key: ${{secrets.PRIVATE_KEY}}
-          script: "cd /var/www/html/red-social; git stash; git pull; git stash pop; npm run build"
+          script: "cd /var/www/html/red-social; git stash; git pull; git stash pop; npm run build;
+          php artisan optimize; service php8.2-fpm reload"

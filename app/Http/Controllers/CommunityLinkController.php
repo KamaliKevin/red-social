@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Channel;
 use App\Models\CommunityLink;
 use App\Http\Requests\CommunityLinkForm;
+use App\Queries\CommunityLinksQuery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,12 +19,21 @@ class CommunityLinkController extends Controller
     \Illuminate\Contracts\Foundation\Application
     {
         $links = "";
-        if($channel){
-            $links = $channel->communityLinks()->where('approved', 1)
-                ->latest('updated_at')->paginate(25);
+        if (request()->exists('popular')) {
+            if($channel){
+                $links = CommunityLinksQuery::getMostPopular($channel);
+            }
+            else {
+                $links = CommunityLinksQuery::getMostPopular();
+            }
         }
         else {
-            $links = CommunityLink::where('approved', 1)->latest('updated_at')->paginate(25);
+            if($channel){
+                $links = CommunityLinksQuery::getByChannel($channel);
+            }
+            else {
+                $links = CommunityLinksQuery::getAll();
+            }
         }
 
         $channels = Channel::orderBy('title','asc')->get();

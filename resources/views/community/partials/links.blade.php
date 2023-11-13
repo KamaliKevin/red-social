@@ -1,4 +1,12 @@
 <div class="col-md-8">
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link {{request()->exists('popular') ? '' : 'disabled' }}" href="{{request()->url()}}">Most recent</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {{request()->exists('popular') ? 'disabled' : '' }}" href="?popular">Most popular</a>
+        </li>
+    </ul>
     <h1>
         <a href="{{ route('community') }}" class="text-decoration-none">Community</a>
         @if($channel) - {{ $channel->title }} @endif

@@ -4,7 +4,10 @@
             <a class="nav-link {{request()->exists('popular') ? '' : 'disabled' }}" href="{{request()->url()}}">Most recent</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{request()->exists('popular') ? 'disabled' : '' }}" href="?popular">Most popular</a>
+            <a class="nav-link {{request()->exists('popular') ? 'disabled' : '' }}"
+               href="?{{ http_build_query(array_merge($_GET, ['popular' => ''])) }}">
+                Most popular
+            </a>
         </li>
     </ul>
     <h1>
@@ -41,7 +44,7 @@
                                 class="btn
                                 {{ Auth::check() && Auth::user()->votedFor($link) ? 'btn-success' : 'btn-secondary' }}"
                                 {{ Auth::guest() ? 'disabled' : '' }}>
-                                {{$link->users()->count()}} votes
+                                <i class="fa-solid fa-thumbs-up"></i> {{$link->users()->count()}} votes
                             </button>
                         </form>
                     </div>

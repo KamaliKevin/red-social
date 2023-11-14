@@ -19,7 +19,21 @@ class CommunityLinkController extends Controller
     \Illuminate\Contracts\Foundation\Application
     {
         $links = "";
-        if (request()->exists('popular')) {
+        if(request()->exists('searchQuery')){
+            $searchQuery = request()->get('searchQuery');
+            if(request()->exists('popular')){
+                if($channel){
+                    $links = CommunityLinksQuery::getMostPopular($channel);
+                }
+                else {
+                    $links = CommunityLinksQuery::getMostPopular();
+                }
+            }
+            else {
+                $links = CommunityLinksQuery::getBySearch($searchQuery);
+            }
+        }
+        else if (request()->exists('popular')) {
             if($channel){
                 $links = CommunityLinksQuery::getMostPopular($channel);
             }

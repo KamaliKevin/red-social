@@ -24,11 +24,19 @@ Route::get('/home', function () {
     return view('home');
 })->middleware(['auth', 'verified'])->name('home');
 
-Route::get('/community', [App\Http\Controllers\CommunityLinkController::class, 'index'])->name('community');
+Route::get('/community', [App\Http\Controllers\CommunityLinkController::class, 'index'])
+    ->name('community');
 
 Route::post('/community', [App\Http\Controllers\CommunityLinkController::class, 'store'])
-->middleware(['auth']);
+    ->middleware(['auth']);
 
-Route::get('community/{channel:slug}', [App\Http\Controllers\CommunityLinkController::class, 'index']);
+Route::get('/community/{channel:slug}', [App\Http\Controllers\CommunityLinkController::class, 'index']);
 
-Route::post('votes/{link}', [App\Http\Controllers\CommunityLinkUserController::class, 'store']);
+Route::post('/votes/{link}', [App\Http\Controllers\CommunityLinkUserController::class, 'store'])
+    ->middleware(['auth']);
+
+Route::get('/profile/edit', [App\Http\Controllers\ProfileController::class, 'edit'])
+    ->middleware(['auth'])->name('editprofile');
+
+Route::post('/profile/store', [App\Http\Controllers\ProfileController::class, 'store'])
+    ->middleware(['auth'])->name('storeprofile');

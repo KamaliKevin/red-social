@@ -63,4 +63,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->votes->contains($link);
     }
+
+    /**
+     * Define a one-to-one relationship with the Profile model.
+     */
+    public function profile(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Profile::class);
+    }
 }

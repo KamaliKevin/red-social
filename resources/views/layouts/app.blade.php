@@ -27,7 +27,8 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Community Links APP') }}
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -40,10 +41,12 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Search Form -->
-                        <form method="get" action="{{ route('community') }}" class="d-flex" role="search">
-                            <input class="form-control me-2" type="search"
-                                   placeholder="Search for link..." aria-label="Search" name="searchQuery">
-                            <button class="btn btn-primary me-2" type="submit">Search</button>
+                        <form method="get" action="{{ route('community') }}" class="d-flex align-items-center me-2">
+                            <div class="input-group">
+                                <input class="form-control" type="search"
+                                       placeholder="Search for link..." aria-label="Search" name="searchQuery">
+                                <button class="btn btn-primary" type="submit">Search</button>
+                            </div>
                         </form>
 
                         <!-- Authentication Links -->
@@ -63,10 +66,15 @@
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                                    <img src="{{ asset(Str::replace("public/", "storage/", Auth::user()->profile->imageUpload)) }}"
+                                         class="img-fluid me-2" alt="User Image" style="max-height: 60px;">
+                                    <span>{{ Auth::user()->name }}</span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('editprofile') }}">
+                                        Edit Profile
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

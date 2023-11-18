@@ -18,7 +18,7 @@ use App\Http\Controllers\UserController;
 Auth::routes(['verify' => 'true']);
 
 Route::resource('users', 'App\Http\Controllers\UserController')
-    ->middleware(['auth', 'verified']);
+    ->middleware(['auth', 'verified', 'admin']);
 
 Route::get('/', function () {
     return view('welcome');

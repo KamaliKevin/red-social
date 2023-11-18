@@ -74,6 +74,15 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    @auth
+                                        @if(auth()->user()->email_verified_at)
+                                            @if(auth()->user()->admin === 1)
+                                                <a class="dropdown-item" href="{{ url('/users') }}">
+                                                    Dashboard
+                                                </a>
+                                            @endif
+                                        @endif
+                                    @endauth
                                     <a class="dropdown-item" href="{{ route('editprofile') }}">
                                         Edit Profile
                                     </a>

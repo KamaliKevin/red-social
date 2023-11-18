@@ -13,7 +13,7 @@
                                     Use a profile image:
                                 </label>
                                 <div class="col-md-6">
-                                    @if($user->profile->imageUpload)
+                                    @if($user->profile)
                                         <img src="{{ asset(Str::replace("public/", "storage/", $user->profile->imageUpload)) }}"
                                              class="mb-3" alt="User Image">
                                     @else
@@ -21,7 +21,7 @@
                                     @endif
                                     <input type="file" id="imageUpload" name="imageUpload"
                                            class="form-control @error('imageUpload') is-invalid @enderror"
-                                           value="{{ old('imageUpload') }}" autofocus>
+                                           value="{{ old('imageUpload') }}">
 
                                     @error('imageUpload')
                                         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>

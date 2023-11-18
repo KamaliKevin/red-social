@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes(['verify' => 'true']);
+
+Route::resource('users', 'App\Http\Controllers\UserController')
+    ->middleware(['auth', 'verified']);
 
 Route::get('/', function () {
     return view('welcome');

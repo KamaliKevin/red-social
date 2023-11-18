@@ -66,8 +66,10 @@
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <img src="{{ asset(Str::replace("public/", "storage/", Auth::user()->profile->imageUpload)) }}"
-                                         class="img-fluid me-2" alt="User Image" style="max-height: 60px;">
+                                    @if(Auth::user()->profile)
+                                        <img src="{{ asset(Str::replace("public/", "storage/", Auth::user()->profile->imageUpload)) }}"
+                                             class="img-fluid me-2" alt="User Image" style="max-height: 60px;">
+                                    @endif
                                     <span>{{ Auth::user()->name }}</span>
                                 </a>
 

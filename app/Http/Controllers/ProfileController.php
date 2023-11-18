@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileForm;
 use App\Models\Profile;
 use App\Models\User;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 
 class ProfileController extends Controller
 {
@@ -31,14 +33,28 @@ class ProfileController extends Controller
      */
     public function store(ProfileForm $request): \Illuminate\Http\RedirectResponse
     {
-        $data = $request->validated();
-        $path = $data['imageUpload']->store('public/images');
+        $dataValidated = $request->validated();
 
-        if($path){
+        if($dataValidated){
+            $requestImage = $request->file('imageUpload');
+            $img = Image::make($requestImage);
+
+            $img->resize(null, 400, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
+
+            $name = $requestImage->hashName();
+            $path = 'storage/images/'.$name;
+
+            $img->save($path); // Store the image
+
+            // We register the image:
             Profile::updateOrCreate(
                 ['user_id' => Auth::id()],
                 ['imageUpload' => $path]
             );
+
             return back()->with('success', "Your image has been uploaded.");
         }
         else {

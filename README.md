@@ -8,7 +8,7 @@
 </p>
 
 ## About this project
-<p>This project uses Laravel to create a very basic soicla media app, similar to Reddit. It has a user system and a vote system</p>
+<p>This project uses Laravel to create a very basic social media app, similar to Reddit. It has a user system and a vote system</p>
 
 ## About Laravel
 
